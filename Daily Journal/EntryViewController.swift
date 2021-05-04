@@ -25,7 +25,7 @@ class EntryViewController: UIViewController, UITextViewDelegate {
                 entry = Entry(context: context)
                 entry?.date = datePicker.date
                 entry?.text = "Today was ..."
-                //entryTextView.becomeFirstResponder()
+                entryTextView.becomeFirstResponder()
             }
         }
         
