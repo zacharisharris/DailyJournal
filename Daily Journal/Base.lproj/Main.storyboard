@@ -88,6 +88,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="bottomConstraint" destination="hzj-Np-d5n" id="3Eh-oo-BZ4"/>
                         <outlet property="datePicker" destination="lmG-gH-8XE" id="n9U-9B-5w1"/>
                         <outlet property="entryTextView" destination="KDF-cq-QGm" id="szQ-0B-CJA"/>
                     </connections>

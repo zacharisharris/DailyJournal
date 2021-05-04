@@ -11,17 +11,21 @@ class EntryViewController: UIViewController, UITextViewDelegate {
     
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var entryTextView: UITextView!
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
     var entry : Entry?
         
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
         if entry == nil {
             if let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext {
                 entry = Entry(context: context)
                 entry?.date = datePicker.date
-                entry?.text = entryTextView.text
+                entry?.text = "Today was ..."
+                //entryTextView.becomeFirstResponder()
             }
         }
         
@@ -60,5 +64,14 @@ class EntryViewController: UIViewController, UITextViewDelegate {
     
     override func viewWillDisappear(_ animated: Bool) {
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
+    }
+    
+    @objc func keyboardWillShow(_ notification: Notification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height
+            
+            bottomConstraint.constant = keyboardHeight
+        }
     }
 }
